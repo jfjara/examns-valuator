@@ -1,14 +1,29 @@
 package com.world.jfjara.views.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "questions")
 public class Question {
 
+	@Id
+	private long id = new Date().getTime();
 	private String text;
 	private List<Answer> answers;
 	private int number;
 	
+	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getText() {
 		return text;
 	}

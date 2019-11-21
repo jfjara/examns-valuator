@@ -1,5 +1,6 @@
 package com.world.jfjara.views.components;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -21,12 +22,12 @@ public class QuestionElementComponent extends Div {
 	private void initComponents() {
 		VerticalLayout layout = new VerticalLayout();
 		Label questionLabel = new Label();
-		questionLabel.setText(question.getText());
+		questionLabel.setText(question.getNumber() + ".- " + question.getText());
 		//questionLabel.setSizeFull();
 		layout.add(questionLabel);
 		for (Answer answer : question.getAnswers()) {
 			layout.add(new AnswersElementComponent(answer, false));
-		}	
+		}			
 		add(layout);
 	}
 	
