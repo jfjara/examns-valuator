@@ -1,13 +1,13 @@
-package com.atsistemas.jfjara.views.components;
+package com.world.jfjara.views.components;
 
-import com.atsistemas.jfjara.utils.LetterSequence;
-import com.atsistemas.jfjara.views.model.Answer;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.world.jfjara.utils.LetterSequence;
+import com.world.jfjara.views.model.Answer;
 
 
 public class AnswersElementComponent extends Div {

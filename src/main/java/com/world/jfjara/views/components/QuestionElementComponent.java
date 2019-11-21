@@ -1,10 +1,10 @@
-package com.atsistemas.jfjara.views.components;
+package com.world.jfjara.views.components;
 
-import com.atsistemas.jfjara.views.model.Answer;
-import com.atsistemas.jfjara.views.model.Question;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.world.jfjara.views.model.Answer;
+import com.world.jfjara.views.model.Question;
 
 
 public class QuestionElementComponent extends Div {

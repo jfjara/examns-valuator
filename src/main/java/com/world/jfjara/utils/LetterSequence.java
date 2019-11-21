@@ -1,4 +1,4 @@
-package com.atsistemas.jfjara.utils;
+package com.world.jfjara.utils;
 
 public class LetterSequence {
 

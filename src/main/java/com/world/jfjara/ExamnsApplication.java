@@ -1,4 +1,4 @@
-package com.atsistemas.jfjara;
+package com.world.jfjara;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

@@ -1,4 +1,4 @@
-package com.atsistemas.jfjara.container;
+package com.world.jfjara.container;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.atsistemas.jfjara.views.model.Question;
+import com.world.jfjara.views.model.Question;
 
 @Component
 @Scope("singleton")

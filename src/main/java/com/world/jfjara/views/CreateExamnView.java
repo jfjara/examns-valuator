@@ -1,4 +1,4 @@
-package com.atsistemas.jfjara.views;
+package com.world.jfjara.views;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,14 +11,14 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.atsistemas.jfjara.views.components.ExamPreviewComponent;
-import com.atsistemas.jfjara.views.components.QuestionsComponent;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
+import com.world.jfjara.views.components.ExamPreviewComponent;
+import com.world.jfjara.views.components.QuestionsComponent;
 
 @Component
 @Route("create")

@@ -1,4 +1,4 @@
-package com.atsistemas.jfjara.views.components;
+package com.world.jfjara.views.components;
 
 import javax.annotation.PostConstruct;
 
@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.atsistemas.jfjara.container.QuestionsContainer;
-import com.atsistemas.jfjara.views.model.Question;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.world.jfjara.container.QuestionsContainer;
+import com.world.jfjara.views.model.Question;
 
 @Component
 @Scope("prototype")

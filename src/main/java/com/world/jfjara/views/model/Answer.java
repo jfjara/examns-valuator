@@ -1,4 +1,4 @@
-package com.atsistemas.jfjara.views.model;
+package com.world.jfjara.views.model;
 
 public class Answer {
 
