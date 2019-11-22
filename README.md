@@ -1,4 +1,4 @@
-# examns-valuator
+# exams-valuator
 Aplicación de creación de exámenes y examinador
 
 Permite generar examenes tipo test (con varias respuestas correctas) y previsualizarlo.
