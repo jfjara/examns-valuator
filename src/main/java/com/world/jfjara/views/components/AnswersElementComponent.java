@@ -16,12 +16,12 @@ public class AnswersElementComponent extends Div {
 	
 	private Answer answer = null;
 	
-	public AnswersElementComponent(Answer answer, boolean showOperations) {
+	public AnswersElementComponent(Answer answer, boolean showOperations, boolean activate) {
 		this.answer = answer;
-		initComponents(showOperations);
+		initComponents(showOperations, activate);
 	}
 	
-	private void initComponents(boolean showOperations) {		
+	private void initComponents(boolean showOperations, boolean activate) {		
 		HorizontalLayout layout = new HorizontalLayout();
 		Label answerLabel = new Label();
 		answerLabel.setText(LetterSequence.transformToChar(answer.getNumber()) + " " + answer.getText());

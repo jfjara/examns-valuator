@@ -31,7 +31,7 @@ public class ExamPreviewComponent extends Div {
 	private  void initComponents() {
 		layout.removeAll();
 		for (Question question : questionContainer.getQuestions()) {
-			QuestionElementComponent questionDiv = new QuestionElementComponent(question);
+			QuestionElementComponent questionDiv = new QuestionElementComponent(question, false);
 			layout.add(questionDiv);
 		}	
 		Button saveButton = new Button("Guardar", event ->  {

@@ -47,7 +47,7 @@ public class QuestionsComponent extends Div {
 			answer.setText(answerTextField.getValue());
 			answer.setCorrect(correctAnswerCheckBox.getValue());
 			question.addAnswer(answer);		
-			AnswersElementComponent answerComponent = new AnswersElementComponent(answer, true);
+			AnswersElementComponent answerComponent = new AnswersElementComponent(answer, true, false);
 			listAnswerDiv.add(answerComponent);
 			answerTextField.clear();
 			answerTextField.setPlaceholder("Introduce una respuesta");
