@@ -1,6 +1,7 @@
 package com.world.jfjara.container;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;
@@ -24,7 +25,14 @@ public class QuestionsContainer {
 	}
 	
 	public void remove(Question question) {
-		
+		Iterator<Question> it = questions.iterator();
+		while (it.hasNext()) {
+			Question q = it.next();
+			if (q.getId() == question.getId()) {
+				it.remove();
+				break;
+			}
+		}		
 	}
 	
 }

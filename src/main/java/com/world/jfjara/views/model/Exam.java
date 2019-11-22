@@ -24,6 +24,16 @@ public class Exam {
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}
+	public void setQuestionResponse(long id, Question questionResponse) {
+		// TODO Auto-generated method stub
+		//buscar la question y reemplazarla
+		for (Question question : questions) {
+			if (id == question.getId())  {
+				//TODO: reemplazar las respuestas
+				question.setAnswers(questionResponse.getAnswers());
+			}
+		}
+	}
 	
 	
 	

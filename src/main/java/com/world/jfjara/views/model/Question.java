@@ -13,10 +13,8 @@ public class Question {
 	@Id
 	private long id = new Date().getTime();
 	private String text;
-	private List<Answer> answers;
+	private List<Answer> answers = new ArrayList<>();
 	private int number;
-	
-	
 	
 	public long getId() {
 		return id;
@@ -48,6 +46,20 @@ public class Question {
 	}
 	public void setNumber(int number) {
 		this.number = number;
+	}
+	
+	public void deselectAllAnswers() {
+		for (Answer answer : answers) {
+			answer.setCorrect(false);
+		}
+	}
+	public void setAnswerResponse(Long idAnswer, boolean value) {
+		// TODO Auto-generated method stub
+		for (Answer answer : answers) {
+			if (idAnswer.equals(answer.getId())) {
+				answer.setCorrect(value);
+			}
+		}
 	}
 	
 }

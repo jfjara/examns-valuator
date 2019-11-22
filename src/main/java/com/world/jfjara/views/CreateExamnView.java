@@ -17,9 +17,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.annotation.UIScope;
 import com.world.jfjara.views.components.ExamPreviewComponent;
 import com.world.jfjara.views.components.QuestionsComponent;
 
+@UIScope
 @Component
 @Route("create")
 public class CreateExamnView extends VerticalLayout {

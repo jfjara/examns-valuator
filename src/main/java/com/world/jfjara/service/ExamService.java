@@ -8,4 +8,5 @@ import com.world.jfjara.views.model.Exam;
 public interface ExamService {
 
 	public Exam findExam(Long id);
+	public Exam findExamWithoutResponses(Long id);
 }

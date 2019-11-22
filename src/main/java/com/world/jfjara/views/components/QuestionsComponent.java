@@ -13,6 +13,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.world.jfjara.container.QuestionsContainer;
+import com.world.jfjara.views.MessageDialog;
 import com.world.jfjara.views.model.Answer;
 import com.world.jfjara.views.model.Question;
 
@@ -30,43 +31,74 @@ public class QuestionsComponent extends Div {
 	@PostConstruct
 	private void initComponents() {
 		VerticalLayout mainLayout = new VerticalLayout();
-		
 		TextField questionTextField = new TextField();
 		questionTextField.setPlaceholder("Introduzca la pregrunta");
 		questionTextField.setWidth("600px");
-		
 		HorizontalLayout responsesLayout = new HorizontalLayout();
 		TextField answerTextField = new TextField();
 		answerTextField.setPlaceholder("Introduce una respuesta");
 		answerTextField.setWidth("500px");
 		Checkbox correctAnswerCheckBox = new Checkbox("Es respuesta correcta");
 		Div listAnswerDiv = new Div();
-		Button createAnswerButton = new Button("Añadir", event ->  {
-			//TODO: validaciones
-			Answer answer = new Answer();
-			answer.setText(answerTextField.getValue());
-			answer.setCorrect(correctAnswerCheckBox.getValue());
-			question.addAnswer(answer);		
-			AnswersElementComponent answerComponent = new AnswersElementComponent(answer, true, false);
-			listAnswerDiv.add(answerComponent);
-			answerTextField.clear();
-			answerTextField.setPlaceholder("Introduce una respuesta");
-			correctAnswerCheckBox.setValue(false);			
+		Button createAnswerButton = new Button("Añadir", event ->  {			
+			addAnswerEvent(answerTextField, correctAnswerCheckBox, listAnswerDiv);
 		});		
-		Button createQuestionButton = new Button("Crear pregunta", event ->  {	
-			question.setText(questionTextField.getValue());
-			questionContainer.add(question);
-			question = new Question();
-			listAnswerDiv.removeAll();			
-			questionTextField.clear();
-			//listAnswerDiv = new Div();
-			
+		Button createQuestionButton = new Button("Crear pregunta", event ->  {
+			addQuestionEvent(questionTextField, listAnswerDiv);
 		});
-		responsesLayout.add(answerTextField,correctAnswerCheckBox, createAnswerButton);
-		
-		mainLayout.add(questionTextField, responsesLayout, listAnswerDiv, createQuestionButton);
-		
+		responsesLayout.add(answerTextField,correctAnswerCheckBox, createAnswerButton);		
+		mainLayout.add(questionTextField, responsesLayout, listAnswerDiv, createQuestionButton);		
 		add(mainLayout);
+	}
+
+	private void addQuestionEvent(TextField questionTextField, Div listAnswerDiv) {
+		if (isValid(questionTextField) && !question.getAnswers().isEmpty()) {
+			addQuestion(questionTextField, listAnswerDiv);
+		} else {
+			showMessageDialog();
+		}
+	}
+
+	private void addAnswerEvent(TextField answerTextField, Checkbox correctAnswerCheckBox, Div listAnswerDiv) {
+		if (isValid(answerTextField)) {
+			addAnswer(answerTextField, correctAnswerCheckBox, listAnswerDiv);	
+		} else {
+			showMessageDialog();
+		}
+	}
+
+	private void addQuestion(TextField questionTextField, Div listAnswerDiv) {
+		question.setText(questionTextField.getValue());
+		questionContainer.add(question);
+		question = new Question();
+		listAnswerDiv.removeAll();			
+		questionTextField.clear();
+	}
+
+	private void addAnswer(TextField answerTextField, Checkbox correctAnswerCheckBox, Div listAnswerDiv) {
+		Answer answer = new Answer();
+		answer.setText(answerTextField.getValue());
+		answer.setCorrect(correctAnswerCheckBox.getValue());
+		question.addAnswer(answer);		
+		AnswersElementComponent answerComponent = new AnswersElementComponent(answer, true, false);
+		listAnswerDiv.add(answerComponent);
+		answerTextField.clear();
+		answerTextField.setPlaceholder("Introduce una respuesta");
+		correctAnswerCheckBox.setValue(false);
+	}
+	
+	private void showMessageDialog() {
+		MessageDialog dialog = new MessageDialog("Debe introducir texto en el campo obligatorio");
+		dialog.open();
+	}
+
+	private boolean isValid(TextField answerTextField) {
+		boolean result = true;
+		String text = answerTextField.getValue();
+		if (text.trim().isEmpty()) {
+			result = false;
+		}		
+		return result;
 	}
 	
 }

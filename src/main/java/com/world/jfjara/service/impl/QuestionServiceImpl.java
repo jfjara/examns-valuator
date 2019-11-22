@@ -17,10 +17,11 @@ public class QuestionServiceImpl implements QuestionService {
 	private ExamRepository examRepository;
 	
 	@Override
-	public void save(List<Question> questions) {
+	public Exam save(List<Question> questions) {
 		Exam exam = new Exam();
 		exam.setQuestions(questions);
 		examRepository.save(exam);		
+		return exam;
 	}
 
 }
