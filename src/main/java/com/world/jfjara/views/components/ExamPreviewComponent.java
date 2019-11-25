@@ -42,7 +42,7 @@ public class ExamPreviewComponent extends Div {
 			HorizontalLayout hLayout = new HorizontalLayout();
 			QuestionElementComponent questionDiv = (QuestionElementComponent) applicationContext
 					.getBean("QuestionElementComponent");
-			questionDiv.initComponents(question, false);
+			questionDiv.initComponents(question, false, true);
 			hLayout.add(questionDiv);
 			layout.add(hLayout);
 		}

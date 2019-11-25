@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEvent;
@@ -14,6 +15,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 import com.world.jfjara.service.ExamAlumnService;
 import com.world.jfjara.service.ExamService;
+import com.world.jfjara.utils.DNIValidator;
 import com.world.jfjara.views.components.QuestionElementComponent;
 import com.world.jfjara.views.model.Exam;
 import com.world.jfjara.views.model.ExamAlumn;
@@ -43,52 +45,65 @@ public class ExamView extends VerticalLayout implements HasUrlParameter<Long> {
 
 	private void initComponents(Exam exam) {
 		VerticalLayout layout = new VerticalLayout();
+		HorizontalLayout hLayout = new HorizontalLayout();
 		TextField alumnNameText = new TextField();
 		alumnNameText.setPlaceholder("Nombre del alumno");
-		layout.add(alumnNameText);
+		alumnNameText.setWidth("200px");
+		TextField alumnDniText = new TextField();
+		alumnDniText.setPlaceholder("DNI del alumno");
+		alumnDniText.setWidth("40px");
+		hLayout.add(alumnNameText, alumnDniText);
+		layout.add(hLayout);
 
 		for (Question question : exam.getQuestions()) {
 			QuestionElementComponent questionDiv = (QuestionElementComponent) applicationContext
 					.getBean("QuestionElementComponent");
-			questionDiv.initComponents(question, true);
+			questionDiv.initComponents(question, true, false);
 			layout.add(questionDiv);
 		}
 		Button saveButton = new Button("Guardar", event -> {
-			saveExamEvent(exam, layout, alumnNameText);
+			saveExamEvent(exam, layout, alumnNameText, alumnDniText);
 		});
 		layout.add(saveButton);
 		add(layout);
 
 	}
 
-	private void saveExamEvent(Exam exam, VerticalLayout layout, TextField alumnNameText) {
+	private void saveExamEvent(Exam exam, VerticalLayout layout, TextField alumnNameText, TextField alumnDniText) {
 
-		if (alumnNameText.getValue().trim().isEmpty()) {
-			showMessageDialog();
+		if (alumnNameText.getValue().trim().isEmpty() || alumnDniText.getValue().trim().isEmpty()) {
+			showMessageDialog("Debes introducir tu nombre en la casilla");
 		} else {
-			ExamAlumn examAlumn = new ExamAlumn();
-			examAlumn.setAlumnName(alumnNameText.getValue());
-			for (int i = 0; i < layout.getComponentCount(); i++) {
-				com.vaadin.flow.component.Component c = layout.getComponentAt(i);
+			
+			if (DNIValidator.validar(alumnDniText.getValue())) {
+				ExamAlumn examAlumn = new ExamAlumn();
+				examAlumn.setAlumnName(alumnNameText.getValue());
+				examAlumn.setDni(alumnDniText.getValue());
+				for (int i = 0; i < layout.getComponentCount(); i++) {
+					com.vaadin.flow.component.Component c = layout.getComponentAt(i);
 
-				if (c instanceof QuestionElementComponent) {
-					QuestionElementComponent questionComponent = (QuestionElementComponent) c;
-					exam.setQuestionResponse(questionComponent.getQuestion().getId(),
-							questionComponent.getQuestionResponse());
+					if (c instanceof QuestionElementComponent) {
+						QuestionElementComponent questionComponent = (QuestionElementComponent) c;
+						exam.setQuestionResponse(questionComponent.getQuestion().getId(),
+								questionComponent.getQuestionResponse());
+					}
 				}
+				examAlumn.setExam(exam);
+				ExamAlumn examStored = examAlumnService.save(examAlumn);
+				if (examStored == null) {
+					UI.getCurrent().navigate("error");
+				} else {			
+					UI.getCurrent().navigate("finish");
+				}
+			} else {
+				showMessageDialog("El DNI es incorrecto");
 			}
-			examAlumn.setExam(exam);
-			ExamAlumn examStored = examAlumnService.save(examAlumn);
-			if (examStored == null) {
-				UI.getCurrent().navigate("error");
-			} else {			
-				UI.getCurrent().navigate("finish");
-			}
+			
 		}
 	}
 
-	private void showMessageDialog() {
-		MessageDialog dialog = new MessageDialog("Debes introducir tu nombre en la casilla");
+	private void showMessageDialog(String message) {
+		MessageDialog dialog = new MessageDialog(message);
 		dialog.open();
 	}
 

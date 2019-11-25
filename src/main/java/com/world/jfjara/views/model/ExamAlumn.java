@@ -12,6 +12,8 @@ public class ExamAlumn {
 	private Long id = new Date().getTime();
 	private Exam exam;
 	private String alumnName;
+	private String dni;
+	
 	public Long getId() {
 		return id;
 	}
@@ -30,7 +32,11 @@ public class ExamAlumn {
 	public void setAlumnName(String alumnName) {
 		this.alumnName = alumnName;
 	}
-	
-	
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 	
 }

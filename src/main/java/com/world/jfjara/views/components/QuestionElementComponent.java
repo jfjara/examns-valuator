@@ -31,7 +31,7 @@ public class QuestionElementComponent extends Div {
 		
 	}
 	
-	public void initComponents(Question question, boolean activate) {
+	public void initComponents(Question question, boolean activate, boolean viewOperations) {
 		this.question = question;
 		layout = new VerticalLayout();
 		HorizontalLayout hLayout = new HorizontalLayout();
@@ -43,7 +43,7 @@ public class QuestionElementComponent extends Div {
 		});
 		hLayout.add(questionLabel);
 		
-		if (activate) {
+		if (viewOperations) {
 			hLayout.add(deleteIcon);
 		}
 		
