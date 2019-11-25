@@ -73,27 +73,32 @@ public class ExamView extends VerticalLayout implements HasUrlParameter<Long> {
 
 		if (alumnNameText.getValue().trim().isEmpty() || alumnDniText.getValue().trim().isEmpty()) {
 			showMessageDialog("Debes introducir tu nombre en la casilla");
-		} else {
-			
+		} else {			
 			if (DNIValidator.validar(alumnDniText.getValue())) {
-				ExamAlumn examAlumn = new ExamAlumn();
-				examAlumn.setAlumnName(alumnNameText.getValue());
-				examAlumn.setDni(alumnDniText.getValue());
-				for (int i = 0; i < layout.getComponentCount(); i++) {
-					com.vaadin.flow.component.Component c = layout.getComponentAt(i);
+				
+				//se ha examinado ya para ese examen?
+				if (examAlumnService.findExamByDni(alumnDniText.getValue(), exam.getId()) == null) {
+					ExamAlumn examAlumn = new ExamAlumn();
+					examAlumn.setAlumnName(alumnNameText.getValue());
+					examAlumn.setDni(alumnDniText.getValue());
+					for (int i = 0; i < layout.getComponentCount(); i++) {
+						com.vaadin.flow.component.Component c = layout.getComponentAt(i);
 
-					if (c instanceof QuestionElementComponent) {
-						QuestionElementComponent questionComponent = (QuestionElementComponent) c;
-						exam.setQuestionResponse(questionComponent.getQuestion().getId(),
-								questionComponent.getQuestionResponse());
+						if (c instanceof QuestionElementComponent) {
+							QuestionElementComponent questionComponent = (QuestionElementComponent) c;
+							exam.setQuestionResponse(questionComponent.getQuestion().getId(),
+									questionComponent.getQuestionResponse());
+						}
 					}
-				}
-				examAlumn.setExam(exam);
-				ExamAlumn examStored = examAlumnService.save(examAlumn);
-				if (examStored == null) {
+					examAlumn.setExam(exam);
+					ExamAlumn examStored = examAlumnService.save(examAlumn);
+					if (examStored == null) {
+						UI.getCurrent().navigate("error");
+					} else {			
+						UI.getCurrent().navigate("finish");
+					}
+				} else {
 					UI.getCurrent().navigate("error");
-				} else {			
-					UI.getCurrent().navigate("finish");
 				}
 			} else {
 				showMessageDialog("El DNI es incorrecto");

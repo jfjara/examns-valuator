@@ -19,6 +19,11 @@ public class ExamAlumnServiceImpl implements ExamAlumnService {
 		return exam;
 	}
 
+	@Override
+	public ExamAlumn findExamByDni(String dni, Long id) {
+		return repository.findByIdAndDni(id, dni);		
+	}
+
 	
 	
 }

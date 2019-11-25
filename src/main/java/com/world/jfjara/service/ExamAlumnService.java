@@ -6,6 +6,6 @@ import com.world.jfjara.views.model.ExamAlumn;
 
 @Service
 public interface ExamAlumnService {
-	
 	public ExamAlumn save(ExamAlumn exam);
+	public ExamAlumn findExamByDni(String dni, Long id);
 }
